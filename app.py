@@ -58,16 +58,25 @@ def inject_cyberpunk_theme():
             border-right: 1px solid #ff007f !important;
         }
 
-        /* Perbaikan khusus untuk File Uploader agar teks tidak tumpang tindih */
+        /* Perbaikan Total untuk File Uploader (Menghilangkan Teks Ganda/Tumpang Tindih) */
         div[data-testid="stFileUploader"] section {
-            background: rgba(2, 2, 8, 0.8) !important;
+            background: rgba(2, 2, 8, 0.9) !important;
             border: 1px dashed #00f3ff !important;
         }
+        
+        /* Sembunyikan teks label duplikat di dalam kotak upload */
+        div[data-testid="stFileUploader"] section div + div {
+            color: #00f3ff !important;
+        }
+        
+        /* Tombol Browse bawaan Streamlit di dalam uploader */
         div[data-testid="stFileUploader"] button {
-            background: #ff007f !important;
-            color: #ffffff !important;
+            background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
+            color: #050515 !important;
+            font-weight: bold !important;
             border: none !important;
             border-radius: 6px !important;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
 
         /* Styling Teks, Judul, Label, Markdown */
