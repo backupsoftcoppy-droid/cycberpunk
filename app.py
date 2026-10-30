@@ -14,67 +14,70 @@ st.set_page_config(
     layout="wide"
 )
 
-def inject_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking/Matrix ke Layar Login."""
-    hacking_html = """
+def inject_cyberpunk_theme():
+    """Menyuntikkan CSS & JavaScript Efek Cyberpunk Neon ke Layar Login."""
+    cyberpunk_html = """
     <style>
         /* Sembunyikan Header & Navbar bawaan Streamlit saat login */
         header {visibility: hidden;}
         footer {visibility: hidden;}
         
-        /* Canvas Matrix sebagai latar belakang */
-        #matrix-bg {
+        /* Canvas Cyberpunk Neon sebagai latar belakang */
+        #cyberpunk-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            background-color: black;
+            background-color: #050515;
         }
 
-        /* Container Kotak Login bergaya Hacker Terminal */
+        /* Container Kotak Login bergaya Cyber-Terminal */
         div[data-testid="stForm"], div.stTextInput {
-            background: rgba(0, 20, 0, 0.85) !important;
-            border: 1px solid #00ff41 !important;
-            box-shadow: 0px 0px 20px #00ff41;
-            border-radius: 10px;
+            background: rgba(10, 5, 25, 0.85) !important;
+            border: 1px solid #00f3ff !important;
+            box-shadow: 0px 0px 25px rgba(0, 243, 255, 0.4), inset 0px 0px 10px rgba(255, 0, 127, 0.2);
+            border-radius: 12px;
             padding: 20px;
         }
 
         /* Styling Teks & Input Field */
         h1, p, label {
-            color: #00ff41 !important;
+            color: #00f3ff !important;
             font-family: 'Courier New', Courier, monospace !important;
-            text-shadow: 0 0 5px #00ff41;
+            text-shadow: 0 0 8px #ff007f;
+            letter-spacing: 1px;
         }
 
         input[type="password"] {
-            background-color: #001100 !important;
-            color: #00ff41 !important;
-            border: 1px solid #00ff41 !important;
+            background-color: #020208 !important;
+            color: #ff007f !important;
+            border: 1px solid #ff007f !important;
             font-family: 'Courier New', Courier, monospace !important;
+            box-shadow: inset 0 0 5px rgba(255, 0, 127, 0.5);
         }
 
         /* Warna Pesan Kesalahan */
         div[data-testid="stNotification"] {
-            background-color: rgba(50, 0, 0, 0.8) !important;
-            border: 1px solid #ff0000 !important;
-            color: #ff0000 !important;
+            background-color: rgba(40, 0, 20, 0.85) !important;
+            border: 1px solid #ff0055 !important;
+            color: #ff0055 !important;
+            box-shadow: 0px 0px 15px rgba(255, 0, 85, 0.5);
         }
     </style>
 
-    <canvas id="matrix-bg"></canvas>
+    <canvas id="cyberpunk-bg"></canvas>
 
     <script>
-        const canvas = document.getElementById('matrix-bg');
+        const canvas = document.getElementById('cyberpunk-bg');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/|';
         const alphabet = katakana + latin;
 
         const fontSize = 16;
@@ -86,14 +89,17 @@ def inject_hacking_theme():
         }
 
         const draw = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            // Efek trail pudar transparan latar belakang gelap
+            ctx.fillStyle = 'rgba(5, 5, 21, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00FF41';
-            ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < rainDrops.length; i++) {
                 const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                
+                // Variasi warna acak antara Biru Elektrik dan Magenta Neon
+                ctx.fillStyle = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
+                ctx.font = fontSize + 'px monospace';
+                
                 ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
                 if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -111,7 +117,7 @@ def inject_hacking_theme():
         });
     </script>
     """
-    st.components.v1.html(hacking_html, height=0)
+    st.components.v1.html(cyberpunk_html, height=0)
 
 def check_password():
     """Mengembalikan True jika kata sandi benar."""
@@ -124,17 +130,17 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
-        inject_hacking_theme()
+        inject_cyberpunk_theme()
         
-        st.title("🔒 Area Terbatas // SYSTEM ACCESS")
+        st.title("⚡ CYBER-TERMINAL // AUTHENTICATION")
         st.text_input(
-            "ENTER ACCESS KEY:", 
+            "ENTER NEURAL ACCESS KEY:", 
             type="password", 
             on_change=password_entered, 
             key="password"
         )
         if st.session_state.get("password_correct") == False:
-            st.error("⛔ ACCESS DENIED: Kata sandi salah.")
+            st.error("⛔ ACCESS DENIED: Neural key mismatch.")
         return False
     return True
 
@@ -537,4 +543,4 @@ if uploaded_file is not None:
                 )
             except Exception as e:
                 st.error(f"Terjadi kesalahan saat memproses data: {e}")
-              
+                
