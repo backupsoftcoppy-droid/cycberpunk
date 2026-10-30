@@ -602,7 +602,3 @@ if uploaded_file is not None:
             except Exception as e:
                 st.error(f"Neural processing error: {e}")
 
-<ElicitationsGroup message="Opsi penyesuaian lanjutan:">
-  <Elicitation label="Tambahkan efek suara saat proses tombol" query="Bisakah ditambahkan efek suara terminal berbunyi bip/ketikan digital saat proses dimulai?"/>
-  <Elicitation label="Ubah gaya teks log terminal" query="Bisakah teks log terminal dibuat bergaya matrix warna hijau terang?"/>
-</ElicitationsGroup>
