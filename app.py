@@ -58,25 +58,18 @@ def inject_cyberpunk_theme():
             border-right: 1px solid #ff007f !important;
         }
 
-        /* Perbaikan Total untuk File Uploader (Menghilangkan Teks Ganda/Tumpang Tindih) */
+        /* PERBAIKAN FILE UPLOADER: Kembalikan tombol uploader ke kondisi bersih tanpa tumpang tindih */
         div[data-testid="stFileUploader"] section {
             background: rgba(2, 2, 8, 0.9) !important;
             border: 1px dashed #00f3ff !important;
         }
         
-        /* Sembunyikan teks label duplikat di dalam kotak upload */
-        div[data-testid="stFileUploader"] section div + div {
-            color: #00f3ff !important;
-        }
-        
-        /* Tombol Browse bawaan Streamlit di dalam uploader */
         div[data-testid="stFileUploader"] button {
-            background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
+            background-color: #00f3ff !important;
             color: #050515 !important;
             font-weight: bold !important;
             border: none !important;
-            border-radius: 6px !important;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            box-shadow: none !important;
         }
 
         /* Styling Teks, Judul, Label, Markdown */
@@ -96,8 +89,8 @@ def inject_cyberpunk_theme():
             box-shadow: inset 0 0 5px rgba(255, 0, 127, 0.5);
         }
 
-        /* Tombol Utama (Primary Button) */
-        button[kind="primary"], .stButton > button {
+        /* Tombol Utama (Primary Button) - Khusus Tombol Aksi, Bukan Uploader */
+        .stButton > button[kind="primary"], .stButton > button {
             background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
             color: #050515 !important;
             font-weight: bold !important;
@@ -108,7 +101,7 @@ def inject_cyberpunk_theme():
             transition: all 0.3s ease;
         }
 
-        button[kind="primary"]:hover, .stButton > button:hover {
+        .stButton > button:hover {
             box-shadow: 0 0 25px #ff007f, 0 0 10px #00f3ff;
             transform: scale(1.02);
         }
