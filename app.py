@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 def inject_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh."""
+    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh & Scanner Effect."""
     hacking_html = """
     <style>
         /* Sembunyikan Header & Footer bawaan Streamlit */
@@ -39,6 +39,26 @@ def inject_hacking_theme():
             z-index: 0;
             pointer-events: none;
             background-color: #000000;
+        }
+
+        /* Efek Garis Scan Laser Hacking Bergerak ke Bawah */
+        .scan-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .scan-container::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: #00ff41;
+            box-shadow: 0 0 15px #00ff41, 0 0 30px #00ff41;
+            animation: scanning 1.5s linear infinite;
+            z-index: 20;
+        }
+        @keyframes scanning {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
 
         /* Pastikan elemen konten Streamlit berada di atas canvas background */
@@ -589,35 +609,50 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        # Simulasi angka berjalan cepat (percentage loading)
-        for percent in range(0, 101, random.randint(8, 15)):
-            if percent > 100:
-                percent = 100
+        # Sesi proses loading interaktif dengan efek scanner garis laser hijau berjalan
+        log_steps = [
+            "INITIALIZING KERNEL INJECTION...",
+            "ESTABLISHING SECURE SOCKETS...",
+            "PARSING RAW EXCEL STREAM...",
+            "BUILDING SJM & MARKING MATRICES...",
+            "COMPILING PVT & SUMMARY SHEETS...",
+            "VERIFYING CRYPTOGRAPHIC HASH..."
+        ]
+        
+        current_progress = 0
+        for step in log_steps:
+            increment = random.randint(12, 22)
+            current_progress = min(100, current_progress + increment)
+            hex_dump = "".join(random.choice("0123456789ABCDEF") for _ in range(28))
             
-            # Hasilkan string acak ala hex memory dump untuk efek hacking nyata
-            hex_dump = "".join(random.choice("0123456789ABCDEF") for _ in range(32))
-            
+            # Membungkus kotak dengan kelas scan-container agar efek laser pemindai aktif
             terminal_box.markdown(f"""
-            <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 15px; border-radius: 4px;'>
-                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 14px;'><b>[ROOT SYSTEM INJECTION]</b></p>
-                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 12px;'>HASH: 0x{hex_dump}</p>
+            <div class="scan-container" style='background-color: #000a00; border: 1px solid #00ff41; padding: 20px; border-radius: 6px; position: relative;'>
+                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 13px;'><b>[SCANNING KERNEL]</b> {step}</p>
+                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; opacity: 0.7;'>MEMORY_OFFSET: 0x{hex_dump}</p>
                 <hr style='border-color: #00ff41; opacity: 0.3;'>
-                <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 10px 0;'>COMPILING MATRIX: {percent}%</h1>
-                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>BYPASSING SECURITY KERNEL & PARSING EXCEL SHEETS...</p>
+                <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 15px 0;'>SCANNING: {current_progress}%</h1>
+                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>DECRYPTING CODE BLOCKS...</p>
             </div>
             """, unsafe_allow_html=True)
-            time.sleep(0.1)
+            time.sleep(0.35)
+            
+        # Selesai 100%
+        terminal_box.markdown("""
+        <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 20px; border-radius: 6px;'>
+            <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 13px;'><b>[SUCCESS]</b> SYSTEM BREACH & MATRIX COMPILED.</p>
+            <hr style='border-color: #00ff41; opacity: 0.3;'>
+            <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 15px 0;'>PROGRESS: 100%</h1>
+            <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>SECURE STREAM READY FOR EXTRACTION.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        time.sleep(0.2)
             
         try:
             processed_excel = process_excel_data(uploaded_file)
             output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
             
-            terminal_box.markdown("""
-            <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 15px; border-radius: 4px;'>
-                <h2 style='color: #00ff41; font-family: monospace; text-align: center; margin: 0;'>[SUCCESS] MATRIX COMPILED 100%</h2>
-                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 5px 0 0 0; font-size: 12px;'>SECURE STREAM READY FOR EXTRACTION.</p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.success("Compilation successful! Secure stream ready for download.")
             
             st.download_button(
                 label="📥 DOWNLOAD SECURE EXCEL MATRIX",
