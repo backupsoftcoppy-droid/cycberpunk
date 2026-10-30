@@ -5,6 +5,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 import io
 import time
+import random
 
 # ==========================================
 # 1. KONFIGURASI HALAMAN & TEMA HACKING MATRIX
@@ -568,7 +569,6 @@ with st.sidebar:
 uploaded_file = st.file_uploader("SELECT ENCRYPTED EXCEL STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    # Efek suara ketik & log terminal instan setelah upload
     st.markdown(f"""
     <div style="background-color: #001100; border: 1px solid #00ff41; padding: 10px; border-radius: 4px;">
         <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] TARGET ACQUIRED: {uploaded_file.name}</p>
@@ -581,19 +581,7 @@ if uploaded_file is not None:
     if st.button("🚀 EXECUTE MATRIX COMPILATION", type="primary"):
         terminal_box = st.empty()
         
-        # Simulasi baris kode hacking nyata berkecepatan tinggi
-        hacking_sequence = [
-            "> INITIALIZING ROOT KERNEL...",
-            "> INJECTING EXCEL PAYLOAD INTO MEMORY BUFFER...",
-            "> BYPASSING FIREWALL: OK [0x00FF41]",
-            "> PARSING COLUMNS: [TANGGAL, VENDOR, DESTINATION, GROSS_WEIGHT]...",
-            "> GENERATING MULTI-SHEET MATRIX [SJM, MARKING, PVT, SHEET3]...",
-            "> COMPILING FORMULAS & CALCULATING GRAND TOTALS...",
-            "> ENCRYPTION LOCK: VERIFIED.",
-            "> STATUS: MATRIX READY FOR EXTRACTION."
-        ]
-        
-        # Audio efek bip terminal menggunakan HTML5 Audio element
+        # Efek suara ketik terminal digital
         audio_html = """
         <audio autoplay style="display:none;">
             <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
@@ -601,24 +589,41 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        current_text = ""
-        for seq in hacking_sequence:
-            current_text += seq + "\n"
-            terminal_box.markdown(f"<div style='background-color: #000a00; border: 1px solid #00ff41; padding: 12px; border-radius: 4px;'><pre style='color: #00ff41; font-family: monospace; margin: 0;'>{current_text}</pre></div>", unsafe_allow_html=True)
-            time.sleep(0.35)
+        # Simulasi angka berjalan cepat (percentage loading)
+        for percent in range(0, 101, random.randint(8, 15)):
+            if percent > 100:
+                percent = 100
             
-        with st.spinner("Compiling final package..."):
-            try:
-                processed_excel = process_excel_data(uploaded_file)
-                output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
-                
-                st.success("Compilation successful! Secure stream ready for download.")
-                
-                st.download_button(
-                    label="📥 DOWNLOAD SECURE EXCEL MATRIX",
-                    data=processed_excel,
-                    file_name=output_filename,
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
-            except Exception as e:
-                st.error(f"Kernel panic during execution: {e}")
+            # Hasilkan string acak ala hex memory dump untuk efek hacking nyata
+            hex_dump = "".join(random.choice("0123456789ABCDEF") for _ in range(32))
+            
+            terminal_box.markdown(f"""
+            <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 15px; border-radius: 4px;'>
+                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 14px;'><b>[ROOT SYSTEM INJECTION]</b></p>
+                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 12px;'>HASH: 0x{hex_dump}</p>
+                <hr style='border-color: #00ff41; opacity: 0.3;'>
+                <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 10px 0;'>COMPILING MATRIX: {percent}%</h1>
+                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>BYPASSING SECURITY KERNEL & PARSING EXCEL SHEETS...</p>
+            </div>
+            """, unsafe_allow_html=True)
+            time.sleep(0.1)
+            
+        try:
+            processed_excel = process_excel_data(uploaded_file)
+            output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
+            
+            terminal_box.markdown("""
+            <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 15px; border-radius: 4px;'>
+                <h2 style='color: #00ff41; font-family: monospace; text-align: center; margin: 0;'>[SUCCESS] MATRIX COMPILED 100%</h2>
+                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 5px 0 0 0; font-size: 12px;'>SECURE STREAM READY FOR EXTRACTION.</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.download_button(
+                label="📥 DOWNLOAD SECURE EXCEL MATRIX",
+                data=processed_excel,
+                file_name=output_filename,
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+        except Exception as e:
+            st.error(f"Kernel panic during execution: {e}")
