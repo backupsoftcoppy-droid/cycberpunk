@@ -4,6 +4,7 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 import io
+import time
 
 # ==========================================
 # 1. KONFIGURASI HALAMAN & TEMA CYBERPUNK
@@ -15,7 +16,7 @@ st.set_page_config(
 )
 
 def inject_cyberpunk_theme():
-    """Menyuntikkan CSS & JavaScript Efek Cyberpunk Neon Menyeluruh (Login & Dashboard)."""
+    """Menyuntikkan CSS & JavaScript Efek Cyberpunk / Hacking Matrix Menyeluruh."""
     cyberpunk_html = """
     <style>
         /* Sembunyikan Header & Footer bawaan Streamlit */
@@ -27,7 +28,7 @@ def inject_cyberpunk_theme():
             background-color: #050515 !important;
         }
 
-        /* Canvas Cyberpunk Neon sebagai latar belakang bergerak */
+        /* Canvas Hacking/Cyberpunk Neon sebagai latar belakang bergerak */
         #cyberpunk-bg {
             position: fixed;
             top: 0;
@@ -58,25 +59,10 @@ def inject_cyberpunk_theme():
             border-right: 1px solid #ff007f !important;
         }
 
-        /* Perbaikan Total untuk File Uploader (Menghilangkan Teks Ganda/Tumpang Tindih) */
+        /* Styling File Uploader tanpa tumpang tindih teks */
         div[data-testid="stFileUploader"] section {
             background: rgba(2, 2, 8, 0.9) !important;
             border: 1px dashed #00f3ff !important;
-        }
-        
-        /* Sembunyikan teks label duplikat di dalam kotak upload */
-        div[data-testid="stFileUploader"] section div + div {
-            color: #00f3ff !important;
-        }
-        
-        /* Tombol Browse bawaan Streamlit di dalam uploader */
-        div[data-testid="stFileUploader"] button {
-            background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
-            color: #050515 !important;
-            font-weight: bold !important;
-            border: none !important;
-            border-radius: 6px !important;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
 
         /* Styling Teks, Judul, Label, Markdown */
@@ -97,7 +83,7 @@ def inject_cyberpunk_theme():
         }
 
         /* Tombol Utama (Primary Button) */
-        button[kind="primary"], .stButton > button {
+        .stButton > button[kind="primary"], .stButton > button {
             background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
             color: #050515 !important;
             font-weight: bold !important;
@@ -108,7 +94,7 @@ def inject_cyberpunk_theme():
             transition: all 0.3s ease;
         }
 
-        button[kind="primary"]:hover, .stButton > button:hover {
+        .stButton > button:hover {
             box-shadow: 0 0 25px #ff007f, 0 0 10px #00f3ff;
             transform: scale(1.02);
         }
@@ -174,7 +160,7 @@ def inject_cyberpunk_theme():
     """
     st.markdown(cyberpunk_html, unsafe_allow_html=True)
 
-# Selalu aktifkan tema cyberpunk secara global
+# Aktifkan tema cyberpunk secara global
 inject_cyberpunk_theme()
 
 def check_password():
@@ -581,14 +567,30 @@ with st.sidebar:
 uploaded_file = st.file_uploader("SELECT EXCEL DATA STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
+    # Efek terminal/hacking saat file berhasil terhubung
+    st.markdown("```ini\n[STATUS] FILE DETECTED: " + uploaded_file.name + "\n[SECURITY] DECRYPTING DATA STREAM... OK\n```")
     st.success(f"File **{uploaded_file.name}** successfully linked to neural network!")
     
     if st.button("🚀 INITIALIZE DATA PROCESSING", type="primary"):
-        with st.spinner("Processing data stream and building Excel sheets..."):
+        # Simulasi efek peretas / proses terminal secara bertahap
+        terminal_box = st.empty()
+        logs = [
+            "⚡ [1/4] Connecting to Cyber-Neural Core...",
+            "⚡ [2/4] Bypassing firewall & parsing Excel matrices...",
+            "⚡ [3/4] Generating SJM, MARKING, PVT, & Sheet3 structures...",
+            "⚡ [4/4] Encryption protocol verified. Matrix ready!"
+        ]
+        
+        for log in logs:
+            terminal_box.markdown(f"<p style='color: #00f3ff; font-family: monospace;'><code>{log}</code></p>", unsafe_allow_html=True)
+            time.sleep(0.4)
+            
+        with st.spinner("Finalizing data stream..."):
             try:
                 processed_excel = process_excel_data(uploaded_file)
                 output_filename = f"CYBER_FIXED_{uploaded_file.name}"
                 
+                terminal_box.empty()
                 st.success("Processing complete! Click below to download processed matrix.")
                 
                 st.download_button(
@@ -599,4 +601,8 @@ if uploaded_file is not None:
                 )
             except Exception as e:
                 st.error(f"Neural processing error: {e}")
-                
+
+<ElicitationsGroup message="Opsi penyesuaian lanjutan:">
+  <Elicitation label="Tambahkan efek suara saat proses tombol" query="Bisakah ditambahkan efek suara terminal berbunyi bip/ketikan digital saat proses dimulai?"/>
+  <Elicitation label="Ubah gaya teks log terminal" query="Bisakah teks log terminal dibuat bergaya matrix warna hijau terang?"/>
+</ElicitationsGroup>
