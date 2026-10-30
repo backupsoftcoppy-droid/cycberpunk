@@ -8,17 +8,17 @@ import time
 import random
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & TEMA HACKING MATRIX
+# 1. KONFIGURASI HALAMAN & TEMA HACKING EKSTREM
 # ==========================================
 st.set_page_config(
-    page_title="SPX Secure Terminal // Root Access",
-    page_icon="💻",
+    page_title="SPX ELITE ROOT // KERNEL BREACH",
+    page_icon="⚡",
     layout="wide"
 )
 
-def inject_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking Terminal & Matrix Scanner."""
-    hacking_html = """
+def inject_elite_hacking_theme():
+    """Menyuntikkan CSS & JavaScript Efek Hacking Elite Matrix Menyeluruh."""
+    elite_html = """
     <style>
         header {visibility: hidden;}
         footer {visibility: hidden;}
@@ -38,31 +38,31 @@ def inject_hacking_theme():
             background-color: #000000;
         }
 
-        /* Efek Terminal Box ala Linux Hacker */
-        .hacker-console {
-            background-color: #030a03;
-            border: 1px solid #00ff41;
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
+        /* Konsol Terminal Super Hacker */
+        .elite-console {
+            background-color: #020802;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.6), inset 0 0 15px rgba(0, 255, 65, 0.3);
             padding: 20px;
             font-family: 'Courier New', Courier, monospace;
             color: #00ff41;
-            border-radius: 6px;
+            border-radius: 8px;
             position: relative;
             overflow: hidden;
         }
 
-        /* Garis Scan Laser Bergerak */
-        .hacker-console::before {
+        /* Garis Scan Laser Bergerak Cepat */
+        .elite-console::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 3px;
-            background: #00ff41;
-            box-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
-            animation: laserScan 2s linear infinite;
+            height: 4px;
+            background: #ffffff;
+            box-shadow: 0 0 15px #00ff41, 0 0 30px #00ff41, 0 0 45px #00ff41;
+            animation: eliteScan 1.2s linear infinite;
         }
 
-        @keyframes laserScan {
+        @keyframes eliteScan {
             0% { top: 0%; }
             100% { top: 100%; }
         }
@@ -73,7 +73,7 @@ def inject_hacking_theme():
         }
 
         div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], section[data-testid="stSidebar"] {
-            background: rgba(0, 15, 0, 0.9) !important;
+            background: rgba(0, 10, 0, 0.95) !important;
             border: 1px solid #00ff41 !important;
             box-shadow: 0px 0px 20px rgba(0, 255, 65, 0.3);
             border-radius: 6px;
@@ -85,15 +85,15 @@ def inject_hacking_theme():
         }
 
         div[data-testid="stFileUploader"] section {
-            background: rgba(0, 5, 0, 0.9) !important;
+            background: rgba(0, 5, 0, 0.95) !important;
             border: 1px dashed #00ff41 !important;
         }
 
         h1, h2, h3, p, label, span, .stMarkdown {
             color: #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
-            text-shadow: 0 0 5px #00ff41;
-            letter-spacing: 0.5px;
+            text-shadow: 0 0 8px #00ff41;
+            letter-spacing: 0.8px;
         }
 
         input[type="password"], input[type="text"] {
@@ -101,15 +101,16 @@ def inject_hacking_theme():
             color: #00ff41 !important;
             border: 1px solid #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
+            box-shadow: inset 0 0 8px rgba(0, 255, 65, 0.6);
         }
 
         .stButton > button[kind="primary"], .stButton > button {
-            background: #001500 !important;
+            background: #001a00 !important;
             color: #00ff41 !important;
             font-weight: bold !important;
             border: 1px solid #00ff41 !important;
             border-radius: 4px !important;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
             font-family: 'Courier New', Courier, monospace !important;
             transition: all 0.2s ease;
         }
@@ -117,14 +118,15 @@ def inject_hacking_theme():
         .stButton > button:hover {
             background: #00ff41 !important;
             color: #000000 !important;
-            box-shadow: 0 0 20px #00ff41;
-            transform: scale(1.02);
+            box-shadow: 0 0 25px #00ff41;
+            transform: scale(1.03);
         }
 
         div[data-testid="stNotification"] {
-            background-color: rgba(0, 20, 0, 0.95) !important;
+            background-color: rgba(0, 25, 0, 0.95) !important;
             border: 1px solid #00ff41 !important;
             color: #00ff41 !important;
+            box-shadow: 0px 0px 20px rgba(0, 255, 65, 0.5);
         }
     </style>
 
@@ -141,7 +143,7 @@ def inject_hacking_theme():
             const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/|';
             const alphabet = katakana + latin;
 
-            const fontSize = 16;
+            const fontSize = 14;
             const columns = canvas.width / fontSize;
             const rainDrops = [];
 
@@ -150,7 +152,7 @@ def inject_hacking_theme():
             }
 
             const draw = () => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 ctx.fillStyle = '#00FF41';
@@ -167,7 +169,7 @@ def inject_hacking_theme():
                 }
             };
 
-            setInterval(draw, 30);
+            setInterval(draw, 25);
 
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
@@ -176,9 +178,9 @@ def inject_hacking_theme():
         }
     </script>
     """
-    st.markdown(hacking_html, unsafe_allow_html=True)
+    st.markdown(elite_html, unsafe_allow_html=True)
 
-inject_hacking_theme()
+inject_elite_hacking_theme()
 
 def check_password():
     """Mengembalikan True jika kata sandi benar."""
@@ -191,15 +193,15 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
-        st.title("💻 ROOT ACCESS // KERNEL LOGIN")
+        st.title("⚡ SPX ELITE KERNEL // AUTHENTICATION")
         st.text_input(
-            "ENTER SECURITY PASSPHRASE:", 
+            "ENTER ROOT ACCESS KEY:", 
             type="password", 
             on_change=password_entered, 
             key="password"
         )
         if st.session_state.get("password_correct") == False:
-            st.error("ACCESS DENIED: Root intrusion detected.")
+            st.error("ACCESS DENIED: Neural key mismatch. IP Logged.")
         return False
     return True
 
@@ -558,31 +560,31 @@ def process_excel_data(uploaded_file):
 # ==========================================
 # 4. ANTARMUKA UTAMA
 # ==========================================
-st.title("💻 SPX ROOT // SECURE DATA PROCESSOR")
-st.markdown("Upload raw data stream to initiate matrix compilation and secure sheet distribution.")
+st.title("⚡ SPX ROOT KERNEL // ELITE PROCESSOR")
+st.markdown("Securely mount encrypted payloads to execute automated neural matrix compilation.")
 
 with st.sidebar:
-    st.write("🔒 **SECURE CHANNEL ACTIVE**")
-    if st.button("TERMINATE SESSION (LOGOUT)"):
+    st.write("🔒 **SECURE SOCKET ACTIVE**")
+    if st.button("ABORT KERNEL (LOGOUT)"):
         st.session_state["password_correct"] = False
         st.rerun()
 
-uploaded_file = st.file_uploader("SELECT ENCRYPTED EXCEL STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("SELECT ENCRYPTED STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
     st.markdown(f"""
-    <div style="background-color: #001100; border: 1px solid #00ff41; padding: 10px; border-radius: 4px;">
+    <div style="background-color: #001a00; border: 1px solid #00ff41; padding: 12px; border-radius: 6px;">
         <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] TARGET ACQUIRED: {uploaded_file.name}</p>
-        <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] DECRYPTING PAYLOAD HASH... 100% SECURE</p>
+        <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] SECURE HASH SIGNATURE VERIFIED: 0x889F4A</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.success(f"File **{uploaded_file.name}** successfully loaded into root memory!")
+    st.success(f"File **{uploaded_file.name}** successfully mounted to root memory stream!")
     
-    if st.button("🚀 EXECUTE MATRIX COMPILATION", type="primary"):
+    if st.button("🚀 EXECUTE SYSTEM BREACH & COMPILE", type="primary"):
         terminal_box = st.empty()
         
-        # Audio efek ketik terminal
+        # Audio efek ketik terminal & dial-up hacking
         audio_html = """
         <audio autoplay style="display:none;">
             <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
@@ -590,61 +592,63 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        # Simulasi hacking log dengan konsol interaktif & efek scanner laser
-        hacking_logs = [
-            "INITIALIZING KERNEL INJECTION...",
-            "BYPASSING PROXY & FIREWALL NODES...",
-            "INJECTING EXCEL PAYLOAD INTO RAM BUFFER...",
-            "PARSING RAW HEADERS & MAPPING DESTINATIONS...",
-            "BUILDING MULTI-SHEET MATRICES [SJM, MARKING, PVT, SHEET3]...",
-            "CALCULATING GROSS WEIGHTS & FORMULAS...",
-            "VERIFYING CRYPTOGRAPHIC HASH SIGNATURES...",
+        # Simulasi log peretasan tingkat lanjut ala film hacker profesional
+        elite_sequences = [
+            "CONNECTING TO REMOTE PROXY CLUSTER [PORT 443]...",
+            "BYPASSING KERNEL FIREWALL & INJECTING SHELLCODE...",
+            "ALLOCATING DYNAMIC MEMORY BUFFERS FOR EXCEL STREAM...",
+            "PARSING RAW MATRICES & EXTRACTING NODES...",
+            "BUILDING MULTI-SHEET ARCHITECTURE [SJM, MARKING, PVT, SHEET3]...",
+            "CALCULATING GROSS WEIGHTS & RECALIBRATING FORMULAS...",
+            "ENCRYPTING OUTPUT PAYLOAD HASH...",
             "FINALIZING ROOT COMPILATION..."
         ]
         
-        current_console_text = ""
+        console_history = ""
         progress = 0
         
-        for log in hacking_logs:
+        for step in elite_sequences:
             progress += random.randint(10, 15)
             if progress > 100: progress = 100
             
-            hex_stream = "".join(random.choice("0123456789ABCDEF") for _ in range(40))
-            current_console_text += f"> {log} [OK]\n  HEX: {hex_stream}\n"
+            # Menghasilkan baris kode heksadesimal acak yang berjalan cepat
+            hex_memory = " ".join("".join(random.choice("0123456789ABCDEF") for _ in range(4)) for _ in range(12))
+            console_history += f"root@spx-core:~# {step}\n[MEM_DUMP]: {hex_memory}\n\n"
             
             terminal_box.markdown(f"""
-            <div class="hacker-console">
-                <p style="margin: 0; font-size: 11px; opacity: 0.7;">ROOT@SPX-TERMINAL:~# ./compile_matrix.sh --secure</p>
-                <pre style="color: #00ff41; font-family: monospace; margin: 5px 0; font-size: 12px; white-space: pre-wrap;">{current_console_text}</pre>
-                <hr style="border-color: #00ff41; opacity: 0.3;">
-                <h2 style="margin: 5px 0; text-align: center; color: #00ff41;">BREACH PROGRESS: {progress}%</h2>
+            <div class="elite-console">
+                <p style="margin: 0; font-size: 11px; opacity: 0.8;">[SYSTEM STATUS: BREACH IN PROGRESS]</p>
+                <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
+                <pre style="color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; white-space: pre-wrap; line-height: 1.2;">{console_history}</pre>
+                <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
+                <h2 style="margin: 5px 0; text-align: center; color: #00ff41; text-shadow: 0 0 10px #00ff41;">BREACH PROGRESS: {progress}%</h2>
             </div>
             """, unsafe_allow_html=True)
-            time.sleep(0.35)
+            time.sleep(0.3)
             
         # Selesai 100%
         terminal_box.markdown(f"""
-        <div class="hacker-console" style="border-color: #00ff41; box-shadow: 0 0 35px #00ff41;">
-            <p style="margin: 0; font-size: 11px;">ROOT@SPX-TERMINAL:~# PROCESS TERMINATED SUCCESSFULLY.</p>
-            <pre style="color: #00ff41; font-family: monospace; margin: 5px 0; font-size: 12px;">{current_console_text}> ALL MATRICES COMPILED & ENCRYPTED. [100%]</pre>
-            <hr style="border-color: #00ff41; opacity: 0.3;">
-            <h2 style="margin: 5px 0; text-align: center; color: #00ff41;">SYSTEM READY FOR EXTRACTION</h2>
+        <div class="elite-console" style="border-color: #ffffff; box-shadow: 0 0 40px #00ff41;">
+            <p style="margin: 0; font-size: 11px; color: #ffffff;">[SYSTEM STATUS: ACCESS GRANTED // MATRIX COMPILED]</p>
+            <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
+            <pre style="color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; white-space: pre-wrap;">{console_history}> ROOT DEPLOYMENT SUCCESSFUL. [100%]</pre>
+            <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
+            <h2 style="margin: 5px 0; text-align: center; color: #ffffff; text-shadow: 0 0 15px #00ff41;">SECURE MATRIX READY FOR EXTRACTION</h2>
         </div>
         """, unsafe_allow_html=True)
         time.sleep(0.3)
             
         try:
             processed_excel = process_excel_data(uploaded_file)
-            output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
+            output_filename = f"ELITE_SECURE_{uploaded_file.name}"
             
-            st.success("Compilation successful! Secure stream ready for download.")
+            st.success("Matrix successfully compiled! Click below to download the processed excel stream.")
             
             st.download_button(
-                label="📥 DOWNLOAD SECURE EXCEL MATRIX",
+                label="📥 DOWNLOAD PROCESSED ELITE MATRIX",
                 data=processed_excel,
                 file_name=output_filename,
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
         except Exception as e:
             st.error(f"Kernel panic during execution: {e}")
-            
