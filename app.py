@@ -7,29 +7,29 @@ import io
 import time
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & TEMA CYBERPUNK
+# 1. KONFIGURASI HALAMAN & TEMA HACKING MATRIX
 # ==========================================
 st.set_page_config(
-    page_title="SPX Data Processor - Cyberpunk Edition",
-    page_icon="⚡",
+    page_title="SPX Secure Terminal // Matrix",
+    page_icon="💻",
     layout="wide"
 )
 
-def inject_cyberpunk_theme():
-    """Menyuntikkan CSS & JavaScript Efek Cyberpunk / Hacking Matrix Menyeluruh."""
-    cyberpunk_html = """
+def inject_hacking_theme():
+    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh."""
+    hacking_html = """
     <style>
         /* Sembunyikan Header & Footer bawaan Streamlit */
         header {visibility: hidden;}
         footer {visibility: hidden;}
         
-        /* Latar Belakang Utama Aplikasi (Global Dark Cyberpunk) */
+        /* Latar Belakang Utama Aplikasi (Hitam Pekat Terminal) */
         .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-            background-color: #050515 !important;
+            background-color: #000000 !important;
         }
 
-        /* Canvas Hacking/Cyberpunk Neon sebagai latar belakang bergerak */
-        #cyberpunk-bg {
+        /* Canvas Matrix Rain sebagai latar belakang bergerak */
+        #matrix-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -37,7 +37,7 @@ def inject_cyberpunk_theme():
             height: 100vh;
             z-index: 0;
             pointer-events: none;
-            background-color: #050515;
+            background-color: #000000;
         }
 
         /* Pastikan elemen konten Streamlit berada di atas canvas background */
@@ -46,72 +46,74 @@ def inject_cyberpunk_theme():
             z-index: 10;
         }
 
-        /* Styling Container / Card / Form / Sidebar */
+        /* Styling Container / Card / Form / Sidebar ala Terminal */
         div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], section[data-testid="stSidebar"] {
-            background: rgba(10, 5, 25, 0.9) !important;
-            border: 1px solid #00f3ff !important;
-            box-shadow: 0px 0px 20px rgba(0, 243, 255, 0.3), inset 0px 0px 10px rgba(255, 0, 127, 0.15);
-            border-radius: 12px;
+            background: rgba(0, 15, 0, 0.9) !important;
+            border: 1px solid #00ff41 !important;
+            box-shadow: 0px 0px 20px rgba(0, 255, 65, 0.3), inset 0px 0px 10px rgba(0, 255, 65, 0.15);
+            border-radius: 6px;
             padding: 20px;
         }
 
         section[data-testid="stSidebar"] {
-            border-right: 1px solid #ff007f !important;
+            border-right: 1px solid #00ff41 !important;
         }
 
-        /* Styling File Uploader tanpa tumpang tindih teks */
+        /* Styling File Uploader */
         div[data-testid="stFileUploader"] section {
-            background: rgba(2, 2, 8, 0.9) !important;
-            border: 1px dashed #00f3ff !important;
+            background: rgba(0, 5, 0, 0.9) !important;
+            border: 1px dashed #00ff41 !important;
         }
 
-        /* Styling Teks, Judul, Label, Markdown */
+        /* Styling Teks, Judul, Label, Markdown ala Terminal Hijau */
         h1, h2, h3, p, label, span, .stMarkdown {
-            color: #00f3ff !important;
+            color: #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
-            text-shadow: 0 0 6px #ff007f;
+            text-shadow: 0 0 5px #00ff41;
             letter-spacing: 0.5px;
         }
 
         /* Input Password & Text Input */
         input[type="password"], input[type="text"] {
-            background-color: #020208 !important;
-            color: #ff007f !important;
-            border: 1px solid #ff007f !important;
+            background-color: #000500 !important;
+            color: #00ff41 !important;
+            border: 1px solid #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
-            box-shadow: inset 0 0 5px rgba(255, 0, 127, 0.5);
+            box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.5);
         }
 
-        /* Tombol Utama (Primary Button) */
+        /* Tombol Utama (Primary Button) ala Terminal */
         .stButton > button[kind="primary"], .stButton > button {
-            background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
-            color: #050515 !important;
+            background: #001500 !important;
+            color: #00ff41 !important;
             font-weight: bold !important;
-            border: none !important;
-            border-radius: 8px !important;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            border: 1px solid #00ff41 !important;
+            border-radius: 4px !important;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
             font-family: 'Courier New', Courier, monospace !important;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .stButton > button:hover {
-            box-shadow: 0 0 25px #ff007f, 0 0 10px #00f3ff;
+            background: #00ff41 !important;
+            color: #000000 !important;
+            box-shadow: 0 0 20px #00ff41;
             transform: scale(1.02);
         }
 
         /* Kotak Notifikasi / Error / Success */
         div[data-testid="stNotification"] {
-            background-color: rgba(10, 5, 25, 0.95) !important;
-            border: 1px solid #00f3ff !important;
-            color: #00f3ff !important;
-            box-shadow: 0px 0px 15px rgba(0, 243, 255, 0.4);
+            background-color: rgba(0, 20, 0, 0.95) !important;
+            border: 1px solid #00ff41 !important;
+            color: #00ff41 !important;
+            box-shadow: 0px 0px 15px rgba(0, 255, 65, 0.4);
         }
     </style>
 
-    <canvas id="cyberpunk-bg"></canvas>
+    <canvas id="matrix-bg"></canvas>
 
     <script>
-        const canvas = document.getElementById('cyberpunk-bg');
+        const canvas = document.getElementById('matrix-bg');
         if (canvas) {
             const ctx = canvas.getContext('2d');
 
@@ -131,15 +133,14 @@ def inject_cyberpunk_theme():
             }
 
             const draw = () => {
-                ctx.fillStyle = 'rgba(5, 5, 21, 0.08)';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00FF41';
+                ctx.font = fontSize + 'px monospace';
 
                 for (let i = 0; i < rainDrops.length; i++) {
                     const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    
-                    ctx.fillStyle = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
-                    ctx.font = fontSize + 'px monospace';
-                    
                     ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
                     if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -158,10 +159,10 @@ def inject_cyberpunk_theme():
         }
     </script>
     """
-    st.markdown(cyberpunk_html, unsafe_allow_html=True)
+    st.markdown(hacking_html, unsafe_allow_html=True)
 
-# Aktifkan tema cyberpunk secara global
-inject_cyberpunk_theme()
+# Aktifkan tema hacking secara global
+inject_hacking_theme()
 
 def check_password():
     """Mengembalikan True jika kata sandi benar."""
@@ -174,15 +175,15 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
-        st.title("⚡ CYBER-TERMINAL // AUTHENTICATION")
+        st.title("💻 ROOT ACCESS // SECURE TERMINAL")
         st.text_input(
-            "ENTER NEURAL ACCESS KEY:", 
+            "ENTER SECURITY PASSPHRASE:", 
             type="password", 
             on_change=password_entered, 
             key="password"
         )
         if st.session_state.get("password_correct") == False:
-            st.error("⛔ ACCESS DENIED: Neural key mismatch.")
+            st.error("ACCESS DENIED: Invalid root passphrase.")
         return False
     return True
 
@@ -555,50 +556,69 @@ def process_excel_data(uploaded_file):
 # ==========================================
 # 4. ANTARMUKA UTAMA (MAIN APP UI)
 # ==========================================
-st.title("📦 LION PARCEL NEURAL DATA PROCESSOR")
-st.markdown("Unggah file Excel raw data Anda di bawah ini untuk menghasilkan file Excel dengan sheet **SJM**, **MARKING**, **PVT**, dan **Sheet3**.")
+st.title("💻 SPX ROOT // SECURE DATA PROCESSOR")
+st.markdown("Upload raw data stream to initiate matrix compilation and secure sheet distribution.")
 
 with st.sidebar:
-    st.write("🔓 **NEURAL SESSION ACTIVE**")
-    if st.button("DISCONNECT (LOGOUT)"):
+    st.write("🔒 **SECURE CHANNEL ACTIVE**")
+    if st.button("TERMINATE SESSION (LOGOUT)"):
         st.session_state["password_correct"] = False
         st.rerun()
 
-uploaded_file = st.file_uploader("SELECT EXCEL DATA STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("SELECT ENCRYPTED EXCEL STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    # Efek terminal/hacking saat file berhasil terhubung
-    st.markdown("```ini\n[STATUS] FILE DETECTED: " + uploaded_file.name + "\n[SECURITY] DECRYPTING DATA STREAM... OK\n```")
-    st.success(f"File **{uploaded_file.name}** successfully linked to neural network!")
+    # Efek suara ketik & log terminal instan setelah upload
+    st.markdown(f"""
+    <div style="background-color: #001100; border: 1px solid #00ff41; padding: 10px; border-radius: 4px;">
+        <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] TARGET ACQUIRED: {uploaded_file.name}</p>
+        <p style="color: #00ff41; font-family: monospace; margin: 0;">[+] DECRYPTING PAYLOAD HASH... 100% SECURE</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    if st.button("🚀 INITIALIZE DATA PROCESSING", type="primary"):
-        # Simulasi efek peretas / proses terminal secara bertahap
+    st.success(f"File **{uploaded_file.name}** successfully loaded into root memory!")
+    
+    if st.button("🚀 EXECUTE MATRIX COMPILATION", type="primary"):
         terminal_box = st.empty()
-        logs = [
-            "⚡ [1/4] Connecting to Cyber-Neural Core...",
-            "⚡ [2/4] Bypassing firewall & parsing Excel matrices...",
-            "⚡ [3/4] Generating SJM, MARKING, PVT, & Sheet3 structures...",
-            "⚡ [4/4] Encryption protocol verified. Matrix ready!"
+        
+        # Simulasi baris kode hacking nyata berkecepatan tinggi
+        hacking_sequence = [
+            "> INITIALIZING ROOT KERNEL...",
+            "> INJECTING EXCEL PAYLOAD INTO MEMORY BUFFER...",
+            "> BYPASSING FIREWALL: OK [0x00FF41]",
+            "> PARSING COLUMNS: [TANGGAL, VENDOR, DESTINATION, GROSS_WEIGHT]...",
+            "> GENERATING MULTI-SHEET MATRIX [SJM, MARKING, PVT, SHEET3]...",
+            "> COMPILING FORMULAS & CALCULATING GRAND TOTALS...",
+            "> ENCRYPTION LOCK: VERIFIED.",
+            "> STATUS: MATRIX READY FOR EXTRACTION."
         ]
         
-        for log in logs:
-            terminal_box.markdown(f"<p style='color: #00f3ff; font-family: monospace;'><code>{log}</code></p>", unsafe_allow_html=True)
-            time.sleep(0.4)
+        # Audio efek bip terminal menggunakan HTML5 Audio element
+        audio_html = """
+        <audio autoplay style="display:none;">
+            <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+        </audio>
+        """
+        st.markdown(audio_html, unsafe_allow_html=True)
+        
+        current_text = ""
+        for seq in hacking_sequence:
+            current_text += seq + "\n"
+            terminal_box.markdown(f"<div style='background-color: #000a00; border: 1px solid #00ff41; padding: 12px; border-radius: 4px;'><pre style='color: #00ff41; font-family: monospace; margin: 0;'>{current_text}</pre></div>", unsafe_allow_html=True)
+            time.sleep(0.35)
             
-        with st.spinner("Finalizing data stream..."):
+        with st.spinner("Compiling final package..."):
             try:
                 processed_excel = process_excel_data(uploaded_file)
-                output_filename = f"CYBER_FIXED_{uploaded_file.name}"
+                output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
                 
-                terminal_box.empty()
-                st.success("Processing complete! Click below to download processed matrix.")
+                st.success("Compilation successful! Secure stream ready for download.")
                 
                 st.download_button(
-                    label="📥 DOWNLOAD PROCESSED EXCEL MATRIX",
+                    label="📥 DOWNLOAD SECURE EXCEL MATRIX",
                     data=processed_excel,
                     file_name=output_filename,
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
             except Exception as e:
-                st.error(f"Neural processing error: {e}")
-
+                st.error(f"Kernel panic during execution: {e}")
