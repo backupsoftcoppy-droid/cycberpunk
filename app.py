@@ -650,7 +650,7 @@ if uploaded_file is not None:
             
         try:
             processed_excel = process_excel_data(uploaded_file)
-            output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
+            output_filename = f"HASIL_SCANING_{uploaded_file.name}"
             
             st.success("Compilation successful! Secure stream ready for download.")
             
