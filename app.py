@@ -40,12 +40,12 @@ def inject_cyberpunk_theme():
         }
 
         /* Pastikan elemen konten Streamlit berada di atas canvas background */
-        [data-testid="stMain"], [data-testid="stSidebar"], div[data-testid="stForm"], div.stTextInput, div.stFileUploader, div.stButton {
+        [data-testid="stMain"], [data-testid="stSidebar"], div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], div.stButton {
             position: relative;
             z-index: 10;
         }
 
-        /* Styling Container / Card / Form / File Uploader / Sidebar */
+        /* Styling Container / Card / Form / Sidebar */
         div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], section[data-testid="stSidebar"] {
             background: rgba(10, 5, 25, 0.9) !important;
             border: 1px solid #00f3ff !important;
@@ -56,6 +56,18 @@ def inject_cyberpunk_theme():
 
         section[data-testid="stSidebar"] {
             border-right: 1px solid #ff007f !important;
+        }
+
+        /* Perbaikan khusus untuk File Uploader agar teks tidak tumpang tindih */
+        div[data-testid="stFileUploader"] section {
+            background: rgba(2, 2, 8, 0.8) !important;
+            border: 1px dashed #00f3ff !important;
+        }
+        div[data-testid="stFileUploader"] button {
+            background: #ff007f !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 6px !important;
         }
 
         /* Styling Teks, Judul, Label, Markdown */
