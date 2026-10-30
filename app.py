@@ -29,13 +29,16 @@ def inject_cyberpunk_theme():
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: 999; /* Pastikan di atas elemen bawaan jika diperlukan */
+            pointer-events: none; /* Supaya klik mouse tetap tembus ke form */
             background-color: #050515;
         }
 
         /* Container Kotak Login bergaya Cyber-Terminal */
         div[data-testid="stForm"], div.stTextInput {
-            background: rgba(10, 5, 25, 0.85) !important;
+            position: relative;
+            z-index: 1000;
+            background: rgba(10, 5, 25, 0.9) !important;
             border: 1px solid #00f3ff !important;
             box-shadow: 0px 0px 25px rgba(0, 243, 255, 0.4), inset 0px 0px 10px rgba(255, 0, 127, 0.2);
             border-radius: 12px;
@@ -71,53 +74,53 @@ def inject_cyberpunk_theme():
 
     <script>
         const canvas = document.getElementById('cyberpunk-bg');
-        const ctx = canvas.getContext('2d');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/|';
-        const alphabet = katakana + latin;
-
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const rainDrops = [];
-
-        for (let x = 0; x < columns; x++) {
-            rainDrops[x] = 1;
-        }
-
-        const draw = () => {
-            // Efek trail pudar transparan latar belakang gelap
-            ctx.fillStyle = 'rgba(5, 5, 21, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                
-                // Variasi warna acak antara Biru Elektrik dan Magenta Neon
-                ctx.fillStyle = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
-                ctx.font = fontSize + 'px monospace';
-                
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        };
-
-        setInterval(draw, 30);
-
-        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        });
+
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>/|';
+            const alphabet = katakana + latin;
+
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            const rainDrops = [];
+
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = 1;
+            }
+
+            const draw = () => {
+                ctx.fillStyle = 'rgba(5, 5, 21, 0.08)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    
+                    ctx.fillStyle = Math.random() > 0.5 ? '#00f3ff' : '#ff007f';
+                    ctx.font = fontSize + 'px monospace';
+                    
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            };
+
+            setInterval(draw, 30);
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
     </script>
     """
-    st.components.v1.html(cyberpunk_html, height=0)
+    st.markdown(cyberpunk_html, unsafe_allow_html=True)
 
 def check_password():
     """Mengembalikan True jika kata sandi benar."""
@@ -543,4 +546,3 @@ if uploaded_file is not None:
                 )
             except Exception as e:
                 st.error(f"Terjadi kesalahan saat memproses data: {e}")
-                
