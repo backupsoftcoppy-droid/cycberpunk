@@ -6,54 +6,68 @@ from openpyxl.utils import get_column_letter
 import io
 
 # ==========================================
-# 1. KONFIGURASI HALAMAN & SISTEM KEAMANAN
+# 1. KONFIGURASI HALAMAN & TEMA CYBERPUNK
 # ==========================================
 st.set_page_config(
-    page_title="SPX Data Processor",
-    page_icon="📦",
+    page_title="SPX Data Processor - Cyberpunk Edition",
+    page_icon="⚡",
     layout="wide"
 )
 
 def inject_cyberpunk_theme():
-    """Menyuntikkan CSS & JavaScript Efek Cyberpunk Neon ke Layar Login."""
+    """Menyuntikkan CSS & JavaScript Efek Cyberpunk Neon Menyeluruh (Login & Dashboard)."""
     cyberpunk_html = """
     <style>
-        /* Sembunyikan Header & Navbar bawaan Streamlit saat login */
+        /* Sembunyikan Header & Footer bawaan Streamlit */
         header {visibility: hidden;}
         footer {visibility: hidden;}
         
-        /* Canvas Cyberpunk Neon sebagai latar belakang */
+        /* Latar Belakang Utama Aplikasi (Global Dark Cyberpunk) */
+        .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+            background-color: #050515 !important;
+        }
+
+        /* Canvas Cyberpunk Neon sebagai latar belakang bergerak */
         #cyberpunk-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 999; /* Pastikan di atas elemen bawaan jika diperlukan */
-            pointer-events: none; /* Supaya klik mouse tetap tembus ke form */
+            z-index: 0;
+            pointer-events: none;
             background-color: #050515;
         }
 
-        /* Container Kotak Login bergaya Cyber-Terminal */
-        div[data-testid="stForm"], div.stTextInput {
+        /* Pastikan elemen konten Streamlit berada di atas canvas background */
+        [data-testid="stMain"], [data-testid="stSidebar"], div[data-testid="stForm"], div.stTextInput, div.stFileUploader, div.stButton {
             position: relative;
-            z-index: 1000;
+            z-index: 10;
+        }
+
+        /* Styling Container / Card / Form / File Uploader / Sidebar */
+        div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], section[data-testid="stSidebar"] {
             background: rgba(10, 5, 25, 0.9) !important;
             border: 1px solid #00f3ff !important;
-            box-shadow: 0px 0px 25px rgba(0, 243, 255, 0.4), inset 0px 0px 10px rgba(255, 0, 127, 0.2);
+            box-shadow: 0px 0px 20px rgba(0, 243, 255, 0.3), inset 0px 0px 10px rgba(255, 0, 127, 0.15);
             border-radius: 12px;
             padding: 20px;
         }
 
-        /* Styling Teks & Input Field */
-        h1, p, label {
-            color: #00f3ff !important;
-            font-family: 'Courier New', Courier, monospace !important;
-            text-shadow: 0 0 8px #ff007f;
-            letter-spacing: 1px;
+        section[data-testid="stSidebar"] {
+            border-right: 1px solid #ff007f !important;
         }
 
-        input[type="password"] {
+        /* Styling Teks, Judul, Label, Markdown */
+        h1, h2, h3, p, label, span, .stMarkdown {
+            color: #00f3ff !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            text-shadow: 0 0 6px #ff007f;
+            letter-spacing: 0.5px;
+        }
+
+        /* Input Password & Text Input */
+        input[type="password"], input[type="text"] {
             background-color: #020208 !important;
             color: #ff007f !important;
             border: 1px solid #ff007f !important;
@@ -61,12 +75,29 @@ def inject_cyberpunk_theme():
             box-shadow: inset 0 0 5px rgba(255, 0, 127, 0.5);
         }
 
-        /* Warna Pesan Kesalahan */
+        /* Tombol Utama (Primary Button) */
+        button[kind="primary"], .stButton > button {
+            background: linear-gradient(135deg, #00f3ff 0%, #ff007f 100%) !important;
+            color: #050515 !important;
+            font-weight: bold !important;
+            border: none !important;
+            border-radius: 8px !important;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            font-family: 'Courier New', Courier, monospace !important;
+            transition: all 0.3s ease;
+        }
+
+        button[kind="primary"]:hover, .stButton > button:hover {
+            box-shadow: 0 0 25px #ff007f, 0 0 10px #00f3ff;
+            transform: scale(1.02);
+        }
+
+        /* Kotak Notifikasi / Error / Success */
         div[data-testid="stNotification"] {
-            background-color: rgba(40, 0, 20, 0.85) !important;
-            border: 1px solid #ff0055 !important;
-            color: #ff0055 !important;
-            box-shadow: 0px 0px 15px rgba(255, 0, 85, 0.5);
+            background-color: rgba(10, 5, 25, 0.95) !important;
+            border: 1px solid #00f3ff !important;
+            color: #00f3ff !important;
+            box-shadow: 0px 0px 15px rgba(0, 243, 255, 0.4);
         }
     </style>
 
@@ -122,6 +153,9 @@ def inject_cyberpunk_theme():
     """
     st.markdown(cyberpunk_html, unsafe_allow_html=True)
 
+# Selalu aktifkan tema cyberpunk secara global
+inject_cyberpunk_theme()
+
 def check_password():
     """Mengembalikan True jika kata sandi benar."""
     def password_entered():
@@ -133,8 +167,6 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
-        inject_cyberpunk_theme()
-        
         st.title("⚡ CYBER-TERMINAL // AUTHENTICATION")
         st.text_input(
             "ENTER NEURAL ACCESS KEY:", 
@@ -516,33 +548,33 @@ def process_excel_data(uploaded_file):
 # ==========================================
 # 4. ANTARMUKA UTAMA (MAIN APP UI)
 # ==========================================
-st.title("📦 Lion Parcel Data Formatting & Marking Generator")
+st.title("📦 LION PARCEL NEURAL DATA PROCESSOR")
 st.markdown("Unggah file Excel raw data Anda di bawah ini untuk menghasilkan file Excel dengan sheet **SJM**, **MARKING**, **PVT**, dan **Sheet3**.")
 
 with st.sidebar:
-    st.write("🔓 **Sesi Login Aktif**")
-    if st.button("Keluar (Logout)"):
+    st.write("🔓 **NEURAL SESSION ACTIVE**")
+    if st.button("DISCONNECT (LOGOUT)"):
         st.session_state["password_correct"] = False
         st.rerun()
 
-uploaded_file = st.file_uploader("Pilih file Excel (.xlsx / .xls)", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("SELECT EXCEL DATA STREAM (.xlsx / .xls)", type=["xlsx", "xls"])
 
 if uploaded_file is not None:
-    st.success(f"File **{uploaded_file.name}** berhasil diunggah!")
+    st.success(f"File **{uploaded_file.name}** successfully linked to neural network!")
     
-    if st.button("🚀 Proses Data Excel", type="primary"):
-        with st.spinner("Sedang memproses data dan menyusun sheet Excel..."):
+    if st.button("🚀 INITIALIZE DATA PROCESSING", type="primary"):
+        with st.spinner("Processing data stream and building Excel sheets..."):
             try:
                 processed_excel = process_excel_data(uploaded_file)
-                output_filename = f"FIXED_SCRIPT_{uploaded_file.name}"
+                output_filename = f"CYBER_FIXED_{uploaded_file.name}"
                 
-                st.success("Pemrosesan Selesai! Klik tombol di bawah untuk mengunduh hasil.")
+                st.success("Processing complete! Click below to download processed matrix.")
                 
                 st.download_button(
-                    label="📥 Unduh File Excel Hasil Processing",
+                    label="📥 DOWNLOAD PROCESSED EXCEL MATRIX",
                     data=processed_excel,
                     file_name=output_filename,
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
             except Exception as e:
-                st.error(f"Terjadi kesalahan saat memproses data: {e}")
+                st.error(f"Neural processing error: {e}")
