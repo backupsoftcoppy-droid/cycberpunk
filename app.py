@@ -11,25 +11,22 @@ import random
 # 1. KONFIGURASI HALAMAN & TEMA HACKING MATRIX
 # ==========================================
 st.set_page_config(
-    page_title="SPX Secure Terminal // Matrix",
+    page_title="SPX Secure Terminal // Root Access",
     page_icon="💻",
     layout="wide"
 )
 
 def inject_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh & Scanner Effect."""
+    """Menyuntikkan CSS & JavaScript Efek Hacking Terminal & Matrix Scanner."""
     hacking_html = """
     <style>
-        /* Sembunyikan Header & Footer bawaan Streamlit */
         header {visibility: hidden;}
         footer {visibility: hidden;}
         
-        /* Latar Belakang Utama Aplikasi (Hitam Pekat Terminal) */
         .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
             background-color: #000000 !important;
         }
 
-        /* Canvas Matrix Rain sebagai latar belakang bergerak */
         #matrix-bg {
             position: fixed;
             top: 0;
@@ -41,37 +38,44 @@ def inject_hacking_theme():
             background-color: #000000;
         }
 
-        /* Efek Garis Scan Laser Hacking Bergerak ke Bawah */
-        .scan-container {
+        /* Efek Terminal Box ala Linux Hacker */
+        .hacker-console {
+            background-color: #030a03;
+            border: 1px solid #00ff41;
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff41;
+            border-radius: 6px;
             position: relative;
             overflow: hidden;
         }
-        .scan-container::after {
+
+        /* Garis Scan Laser Bergerak */
+        .hacker-console::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 4px;
+            height: 3px;
             background: #00ff41;
-            box-shadow: 0 0 15px #00ff41, 0 0 30px #00ff41;
-            animation: scanning 1.5s linear infinite;
-            z-index: 20;
+            box-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+            animation: laserScan 2s linear infinite;
         }
-        @keyframes scanning {
+
+        @keyframes laserScan {
             0% { top: 0%; }
             100% { top: 100%; }
         }
 
-        /* Pastikan elemen konten Streamlit berada di atas canvas background */
         [data-testid="stMain"], [data-testid="stSidebar"], div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], div.stButton {
             position: relative;
             z-index: 10;
         }
 
-        /* Styling Container / Card / Form / Sidebar ala Terminal */
         div[data-testid="stForm"], div.stTextInput, div[data-testid="stFileUploader"], section[data-testid="stSidebar"] {
             background: rgba(0, 15, 0, 0.9) !important;
             border: 1px solid #00ff41 !important;
-            box-shadow: 0px 0px 20px rgba(0, 255, 65, 0.3), inset 0px 0px 10px rgba(0, 255, 65, 0.15);
+            box-shadow: 0px 0px 20px rgba(0, 255, 65, 0.3);
             border-radius: 6px;
             padding: 20px;
         }
@@ -80,13 +84,11 @@ def inject_hacking_theme():
             border-right: 1px solid #00ff41 !important;
         }
 
-        /* Styling File Uploader */
         div[data-testid="stFileUploader"] section {
             background: rgba(0, 5, 0, 0.9) !important;
             border: 1px dashed #00ff41 !important;
         }
 
-        /* Styling Teks, Judul, Label, Markdown ala Terminal Hijau */
         h1, h2, h3, p, label, span, .stMarkdown {
             color: #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
@@ -94,16 +96,13 @@ def inject_hacking_theme():
             letter-spacing: 0.5px;
         }
 
-        /* Input Password & Text Input */
         input[type="password"], input[type="text"] {
             background-color: #000500 !important;
             color: #00ff41 !important;
             border: 1px solid #00ff41 !important;
             font-family: 'Courier New', Courier, monospace !important;
-            box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.5);
         }
 
-        /* Tombol Utama (Primary Button) ala Terminal */
         .stButton > button[kind="primary"], .stButton > button {
             background: #001500 !important;
             color: #00ff41 !important;
@@ -122,12 +121,10 @@ def inject_hacking_theme():
             transform: scale(1.02);
         }
 
-        /* Kotak Notifikasi / Error / Success */
         div[data-testid="stNotification"] {
             background-color: rgba(0, 20, 0, 0.95) !important;
             border: 1px solid #00ff41 !important;
             color: #00ff41 !important;
-            box-shadow: 0px 0px 15px rgba(0, 255, 65, 0.4);
         }
     </style>
 
@@ -137,7 +134,6 @@ def inject_hacking_theme():
         const canvas = document.getElementById('matrix-bg');
         if (canvas) {
             const ctx = canvas.getContext('2d');
-
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -182,7 +178,6 @@ def inject_hacking_theme():
     """
     st.markdown(hacking_html, unsafe_allow_html=True)
 
-# Aktifkan tema hacking secara global
 inject_hacking_theme()
 
 def check_password():
@@ -196,7 +191,7 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state or not st.session_state["password_correct"]:
-        st.title("💻 ROOT ACCESS // SECURE TERMINAL")
+        st.title("💻 ROOT ACCESS // KERNEL LOGIN")
         st.text_input(
             "ENTER SECURITY PASSPHRASE:", 
             type="password", 
@@ -204,7 +199,7 @@ def check_password():
             key="password"
         )
         if st.session_state.get("password_correct") == False:
-            st.error("ACCESS DENIED: Invalid root passphrase.")
+            st.error("ACCESS DENIED: Root intrusion detected.")
         return False
     return True
 
@@ -238,7 +233,6 @@ def get_prefix_code(destination_name):
     return MARKING_MAP.get(dest_str, dest_str.split()[0][:3].upper())
 
 def clean_remake_status(val):
-    """Sistem normalisasi status REMAKE / Remarks"""
     if pd.isna(val):
         return "BAG"
     val_str = str(val).strip().upper()
@@ -288,7 +282,7 @@ def autofit_table_columns(ws, start_row=1, min_width=15):
         ws.column_dimensions[col_letter].width = max(max_len + 8, min_width)
 
 # ==========================================
-# 3. FUNGSI PEMROSESAN DATA (DINAMIS & AMAN)
+# 3. FUNGSI PEMROSESAN DATA
 # ==========================================
 def process_excel_data(uploaded_file):
     df_raw = pd.read_excel(uploaded_file, sheet_name=0, header=None)
@@ -326,12 +320,10 @@ def process_excel_data(uploaded_file):
     df_sorted['to_index'] = df_sorted.groupby('Sc_Destination').cumcount()
     df_sorted['bag_num'] = (df_sorted['to_index'] // 15) + 1
 
-    # 1. SHEET 'SJM'
+    # Sheet SJM
     ws_sjm = wb.active
     ws_sjm.title = "SJM"
-
     title_text = str(df_raw.iloc[0, 0]) if (not pd.isna(df_raw.iloc[0, 0])) else "SURAT JALAN MANUAL"
-
     sub_title_raw = df_raw.iloc[1, 0] if len(df_raw) > 1 else ""
     sub_title_text = ""
     if pd.notna(sub_title_raw):
@@ -345,7 +337,6 @@ def process_excel_data(uploaded_file):
 
     ws_sjm.append([title_text, "", "", "", "", "", "", "", code_box])
     ws_sjm.append([sub_title_text, "", "", "", "", "", "", "", ""])
-
     ws_sjm.merge_cells("A1:H1")
     ws_sjm.merge_cells("A2:H2")
 
@@ -403,13 +394,11 @@ def process_excel_data(uploaded_file):
 
     autofit_table_columns(ws_sjm, start_row=3, min_width=16)
 
-    # 2. SHEET 'MARKING'
+    # Sheet MARKING
     ws_marking = wb.create_sheet(title="MARKING")
-
     ws_marking.append(["MARKING SPX OSO SUB DC CYCLE "] + [""] * 10)
     ws_marking.merge_cells("A1:K1")
     ws_marking.row_dimensions[1].height = 28
-
     cell_a1 = ws_marking["A1"]
     cell_a1.fill = RED_FILL
     cell_a1.font = FONT_WHITE_TITLE_18
@@ -418,7 +407,6 @@ def process_excel_data(uploaded_file):
     ws_marking.append([sub_title_text] + [""] * 10)
     ws_marking.merge_cells("A2:K2")
     ws_marking.row_dimensions[2].height = 20
-
     cell_a2 = ws_marking["A2"]
     cell_a2.fill = YELLOW_FILL
     cell_a2.font = FONT_SUB_BLACK
@@ -442,14 +430,11 @@ def process_excel_data(uploaded_file):
     for idx, row in enumerate(df_sorted.itertuples(), start=4):
         tgl, vendor, origin, dest = row.Tanggal, "Lion Parcel", row.Sc_Origin, row.Sc_Destination
         lt_num, to_num, gw = row.Lt_Number, row.To_Number, row.Gross_Weight
-
         prefix = get_prefix_code(dest)
         marking = f"{prefix}-C1-{row.bag_num}"
         remarks = row.Remake
-
         formula_ext_num = f'=G{idx}&"/"&E{idx}&"/"&I{idx}'
         ext_num_val_for_df = f"{marking}/{lt_num}/{remarks}"
-
         marking_rows.append([tgl, vendor, origin, dest, lt_num, to_num, marking, gw, remarks, ext_num_val_for_df, gw, idx])
         ws_marking.append([tgl, vendor, origin, dest, lt_num, to_num, marking, gw, remarks, formula_ext_num, gw])
 
@@ -466,12 +451,11 @@ def process_excel_data(uploaded_file):
     df_m["Gross Weight"] = pd.to_numeric(df_m["Gross Weight"], errors='coerce').fillna(0)
 
     max_marking_data_row = ws_marking.max_row
-
     tot_gw = round(df_m["Clear Gw"].sum(), 2)
     tot_row_idx = ws_marking.max_row + 1
     ws_marking.append(["GRAND TOTAL", "", "", "", "", "", "", tot_gw, "", "", tot_gw])
-
     ws_marking.merge_cells(start_row=tot_row_idx, start_column=1, end_row=tot_row_idx, end_column=7)
+
     for col_idx in range(1, 12):
         c = ws_marking.cell(row=tot_row_idx, column=col_idx)
         c.fill = RED_FILL
@@ -483,7 +467,7 @@ def process_excel_data(uploaded_file):
 
     autofit_table_columns(ws_marking, start_row=3, min_width=18)
 
-    # 3. SHEET 'PVT'
+    # Sheet PVT
     ws_pvt = wb.create_sheet(title="PVT")
     ws_pvt.append([])
     ws_pvt.append([])
@@ -497,19 +481,16 @@ def process_excel_data(uploaded_file):
         c.border = BORDER_THIN
 
     pvt_first_rows = df_m.drop_duplicates(subset=["External Number"], keep="first")
-
     for pvt_row_idx, item in enumerate(pvt_first_rows.itertuples(), start=4):
         m_row = item.marking_row_idx
         formula_pvt_ext = f"=MARKING!J{m_row}"
         formula_count = f"=COUNTIF(MARKING!J$4:J${max_marking_data_row}, A{pvt_row_idx})"
         formula_sum = f"=SUMIF(MARKING!J$4:J${max_marking_data_row}, A{pvt_row_idx}, MARKING!K$4:K${max_marking_data_row})"
-
         ws_pvt.append([formula_pvt_ext, formula_count, formula_sum])
 
     pvt_last_row = ws_pvt.max_row
     tot_pvt_count_formula = f"=SUM(B4:B{pvt_last_row})"
     tot_pvt_sum_formula = f"=SUM(C4:C{pvt_last_row})"
-
     ws_pvt.append(["Grand Total", tot_pvt_count_formula, tot_pvt_sum_formula])
 
     for row in ws_pvt.iter_rows(min_row=4, max_row=ws_pvt.max_row, min_col=1, max_col=3):
@@ -529,7 +510,7 @@ def process_excel_data(uploaded_file):
         max_len = max(len(str(cell.value or '')) for cell in col)
         ws_pvt.column_dimensions[col_letter].width = max(max_len + 12, 30)
 
-    # 4. SHEET 'Sheet3'
+    # Sheet Sheet3
     ws_sheet3 = wb.create_sheet(title="Sheet3")
     ws_sheet3.append([])
     ws_sheet3.append([])
@@ -575,7 +556,7 @@ def process_excel_data(uploaded_file):
     return output_stream
 
 # ==========================================
-# 4. ANTARMUKA UTAMA (MAIN APP UI)
+# 4. ANTARMUKA UTAMA
 # ==========================================
 st.title("💻 SPX ROOT // SECURE DATA PROCESSOR")
 st.markdown("Upload raw data stream to initiate matrix compilation and secure sheet distribution.")
@@ -601,7 +582,7 @@ if uploaded_file is not None:
     if st.button("🚀 EXECUTE MATRIX COMPILATION", type="primary"):
         terminal_box = st.empty()
         
-        # Efek suara ketik terminal digital
+        # Audio efek ketik terminal
         audio_html = """
         <audio autoplay style="display:none;">
             <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
@@ -609,48 +590,52 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        # Sesi proses loading interaktif dengan efek scanner garis laser hijau berjalan
-        log_steps = [
+        # Simulasi hacking log dengan konsol interaktif & efek scanner laser
+        hacking_logs = [
             "INITIALIZING KERNEL INJECTION...",
-            "ESTABLISHING SECURE SOCKETS...",
-            "PARSING RAW EXCEL STREAM...",
-            "BUILDING SJM & MARKING MATRICES...",
-            "COMPILING PVT & SUMMARY SHEETS...",
-            "VERIFYING CRYPTOGRAPHIC HASH..."
+            "BYPASSING PROXY & FIREWALL NODES...",
+            "INJECTING EXCEL PAYLOAD INTO RAM BUFFER...",
+            "PARSING RAW HEADERS & MAPPING DESTINATIONS...",
+            "BUILDING MULTI-SHEET MATRICES [SJM, MARKING, PVT, SHEET3]...",
+            "CALCULATING GROSS WEIGHTS & FORMULAS...",
+            "VERIFYING CRYPTOGRAPHIC HASH SIGNATURES...",
+            "FINALIZING ROOT COMPILATION..."
         ]
         
-        current_progress = 0
-        for step in log_steps:
-            increment = random.randint(12, 22)
-            current_progress = min(100, current_progress + increment)
-            hex_dump = "".join(random.choice("0123456789ABCDEF") for _ in range(28))
+        current_console_text = ""
+        progress = 0
+        
+        for log in hacking_logs:
+            progress += random.randint(10, 15)
+            if progress > 100: progress = 100
             
-            # Membungkus kotak dengan kelas scan-container agar efek laser pemindai aktif
+            hex_stream = "".join(random.choice("0123456789ABCDEF") for _ in range(40))
+            current_console_text += f"> {log} [OK]\n  HEX: {hex_stream}\n"
+            
             terminal_box.markdown(f"""
-            <div class="scan-container" style='background-color: #000a00; border: 1px solid #00ff41; padding: 20px; border-radius: 6px; position: relative;'>
-                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 13px;'><b>[SCANNING KERNEL]</b> {step}</p>
-                <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; opacity: 0.7;'>MEMORY_OFFSET: 0x{hex_dump}</p>
-                <hr style='border-color: #00ff41; opacity: 0.3;'>
-                <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 15px 0;'>SCANNING: {current_progress}%</h1>
-                <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>DECRYPTING CODE BLOCKS...</p>
+            <div class="hacker-console">
+                <p style="margin: 0; font-size: 11px; opacity: 0.7;">ROOT@SPX-TERMINAL:~# ./compile_matrix.sh --secure</p>
+                <pre style="color: #00ff41; font-family: monospace; margin: 5px 0; font-size: 12px; white-space: pre-wrap;">{current_console_text}</pre>
+                <hr style="border-color: #00ff41; opacity: 0.3;">
+                <h2 style="margin: 5px 0; text-align: center; color: #00ff41;">BREACH PROGRESS: {progress}%</h2>
             </div>
             """, unsafe_allow_html=True)
             time.sleep(0.35)
             
         # Selesai 100%
-        terminal_box.markdown("""
-        <div style='background-color: #000a00; border: 1px solid #00ff41; padding: 20px; border-radius: 6px;'>
-            <p style='color: #00ff41; font-family: monospace; margin: 0; font-size: 13px;'><b>[SUCCESS]</b> SYSTEM BREACH & MATRIX COMPILED.</p>
-            <hr style='border-color: #00ff41; opacity: 0.3;'>
-            <h1 style='color: #00ff41; font-family: monospace; text-align: center; margin: 15px 0;'>PROGRESS: 100%</h1>
-            <p style='color: #00ff41; font-family: monospace; text-align: center; margin: 0; font-size: 11px;'>SECURE STREAM READY FOR EXTRACTION.</p>
+        terminal_box.markdown(f"""
+        <div class="hacker-console" style="border-color: #00ff41; box-shadow: 0 0 35px #00ff41;">
+            <p style="margin: 0; font-size: 11px;">ROOT@SPX-TERMINAL:~# PROCESS TERMINATED SUCCESSFULLY.</p>
+            <pre style="color: #00ff41; font-family: monospace; margin: 5px 0; font-size: 12px;">{current_console_text}> ALL MATRICES COMPILED & ENCRYPTED. [100%]</pre>
+            <hr style="border-color: #00ff41; opacity: 0.3;">
+            <h2 style="margin: 5px 0; text-align: center; color: #00ff41;">SYSTEM READY FOR EXTRACTION</h2>
         </div>
         """, unsafe_allow_html=True)
-        time.sleep(0.2)
+        time.sleep(0.3)
             
         try:
             processed_excel = process_excel_data(uploaded_file)
-            output_filename = f"HASIL_SCANING_{uploaded_file.name}"
+            output_filename = f"SECURE_MATRIX_{uploaded_file.name}"
             
             st.success("Compilation successful! Secure stream ready for download.")
             
@@ -662,3 +647,4 @@ if uploaded_file is not None:
             )
         except Exception as e:
             st.error(f"Kernel panic during execution: {e}")
+            
