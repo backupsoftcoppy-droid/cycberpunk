@@ -6,6 +6,7 @@ from openpyxl.utils import get_column_letter
 import io
 import time
 import random
+import streamlit.components.v1 as components
 
 # ==========================================
 # 1. KONFIGURASI HALAMAN & TEMA HACKING EKSTREM
@@ -17,7 +18,7 @@ st.set_page_config(
 )
 
 def inject_elite_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh."""
+    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh & Auto-Scroll."""
     elite_html = """
     <style>
         header {visibility: hidden;}
@@ -38,7 +39,7 @@ def inject_elite_hacking_theme():
             background-color: #000000;
         }
 
-        /* Konsol Terminal Super Hacker */
+        /* Konsol Terminal Super Hacker dengan Auto-Scroll */
         .elite-console {
             background-color: #020802;
             border: 2px solid #00ff41;
@@ -49,6 +50,8 @@ def inject_elite_hacking_theme():
             border-radius: 8px;
             position: relative;
             overflow: hidden;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         /* Garis Scan Laser Bergerak Cepat */
@@ -592,7 +595,7 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        # Daftar tahapan peretasan intensif untuk memenuhi durasi jeda 10-15 detik
+        # Daftar tahapan peretasan intensif (Total waktu jeda sekitar 12-15 detik)
         elite_sequences = [
             "ESTABLISHING SECURE SOCKET TO REMOTE PROXY [PORT 443]...",
             "BYPASSING HOST FIREWALL & INJECTING SHELLCODE INTO KERNEL...",
@@ -607,7 +610,6 @@ if uploaded_file is not None:
         console_history = ""
         progress = 0
         
-        # Total iterasi dan sleep diatur agar memakan waktu total sekitar 12 - 14 detik
         for step in elite_sequences:
             progress += random.randint(10, 15)
             if progress > 100: 
@@ -616,8 +618,9 @@ if uploaded_file is not None:
             hex_memory = " ".join("".join(random.choice("0123456789ABCDEF") for _ in range(4)) for _ in range(12))
             console_history += f"root@spx-core:~# {step}\n[MEM_DUMP]: {hex_memory}\n\n"
             
+            # Render kotak terminal hacker
             terminal_box.markdown(f"""
-            <div class="elite-console">
+            <div class="elite-console" id="terminal-scroll">
                 <p style="margin: 0; font-size: 11px; opacity: 0.8;">[SYSTEM STATUS: BREACH IN PROGRESS]</p>
                 <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
                 <pre style="color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; white-space: pre-wrap; line-height: 1.2;">{console_history}</pre>
@@ -626,12 +629,22 @@ if uploaded_file is not None:
             </div>
             """, unsafe_allow_html=True)
             
-            # Jeda waktu sekitar 1.5 detik per langkah x 8 langkah = ~12 detik total jeda
+            # Script JavaScript untuk memaksa auto-scroll ke bawah secara otomatis pada elemen terminal
+            components.html("""
+                <script>
+                    const consoleBox = window.parent.document.getElementById('terminal-scroll');
+                    if (consoleBox) {
+                        consoleBox.scrollTop = consoleBox.scrollHeight;
+                    }
+                </script>
+            """, height=0)
+            
+            # Jeda waktu 1.5 detik per langkah x 8 langkah = ~12 detik total jeda nyata
             time.sleep(1.5)
             
         # Selesai 100%
         terminal_box.markdown(f"""
-        <div class="elite-console" style="border-color: #ffffff; box-shadow: 0 0 40px #00ff41;">
+        <div class="elite-console" style="border-color: #ffffff; box-shadow: 0 0 40px #00ff41;" id="terminal-scroll">
             <p style="margin: 0; font-size: 11px; color: #ffffff;">[SYSTEM STATUS: ACCESS GRANTED // MATRIX COMPILED]</p>
             <hr style="border-color: #00ff41; opacity: 0.3; margin: 5px 0;">
             <pre style="color: #00ff41; font-family: monospace; margin: 0; font-size: 11px; white-space: pre-wrap;">{console_history}> ROOT DEPLOYMENT SUCCESSFUL. [100%]</pre>
@@ -639,6 +652,16 @@ if uploaded_file is not None:
             <h2 style="margin: 5px 0; text-align: center; color: #ffffff; text-shadow: 0 0 15px #00ff41;">SECURE MATRIX READY FOR EXTRACTION</h2>
         </div>
         """, unsafe_allow_html=True)
+        
+        components.html("""
+            <script>
+                const consoleBox = window.parent.document.getElementById('terminal-scroll');
+                if (consoleBox) {
+                    consoleBox.scrollTop = consoleBox.scrollHeight;
+                }
+            </script>
+        """, height=0)
+        
         time.sleep(0.5)
             
         try:
