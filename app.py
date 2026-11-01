@@ -17,7 +17,7 @@ st.set_page_config(
 )
 
 def inject_elite_hacking_theme():
-    """Menyuntikkan CSS & JavaScript Efek Hacking Elite Matrix Menyeluruh."""
+    """Menyuntikkan CSS & JavaScript Efek Hacking Matrix Hijau Klasik Menyeluruh."""
     elite_html = """
     <style>
         header {visibility: hidden;}
@@ -584,7 +584,7 @@ if uploaded_file is not None:
     if st.button("🚀 EXECUTE SYSTEM BREACH & COMPILE", type="primary"):
         terminal_box = st.empty()
         
-        # Audio efek ketik terminal & dial-up hacking
+        # Audio efek ketik terminal
         audio_html = """
         <audio autoplay style="display:none;">
             <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
@@ -592,26 +592,27 @@ if uploaded_file is not None:
         """
         st.markdown(audio_html, unsafe_allow_html=True)
         
-        # Simulasi log peretasan tingkat lanjut ala film hacker profesional
+        # Daftar tahapan peretasan intensif untuk memenuhi durasi jeda 10-15 detik
         elite_sequences = [
-            "CONNECTING TO REMOTE PROXY CLUSTER [PORT 443]...",
-            "BYPASSING KERNEL FIREWALL & INJECTING SHELLCODE...",
+            "ESTABLISHING SECURE SOCKET TO REMOTE PROXY [PORT 443]...",
+            "BYPASSING HOST FIREWALL & INJECTING SHELLCODE INTO KERNEL...",
             "ALLOCATING DYNAMIC MEMORY BUFFERS FOR EXCEL STREAM...",
-            "PARSING RAW MATRICES & EXTRACTING NODES...",
+            "PARSING RAW HEADERS, COLUMNS, & MAPPING DESTINATIONS...",
             "BUILDING MULTI-SHEET ARCHITECTURE [SJM, MARKING, PVT, SHEET3]...",
             "CALCULATING GROSS WEIGHTS & RECALIBRATING FORMULAS...",
-            "ENCRYPTING OUTPUT PAYLOAD HASH...",
-            "FINALIZING ROOT COMPILATION..."
+            "VERIFYING CRYPTOGRAPHIC HASH SIGNATURES & CHECKSUMS...",
+            "FINALIZING ROOT COMPILATION & ENCRYPTING PAYLOAD..."
         ]
         
         console_history = ""
         progress = 0
         
+        # Total iterasi dan sleep diatur agar memakan waktu total sekitar 12 - 14 detik
         for step in elite_sequences:
             progress += random.randint(10, 15)
-            if progress > 100: progress = 100
+            if progress > 100: 
+                progress = 100
             
-            # Menghasilkan baris kode heksadesimal acak yang berjalan cepat
             hex_memory = " ".join("".join(random.choice("0123456789ABCDEF") for _ in range(4)) for _ in range(12))
             console_history += f"root@spx-core:~# {step}\n[MEM_DUMP]: {hex_memory}\n\n"
             
@@ -624,7 +625,9 @@ if uploaded_file is not None:
                 <h2 style="margin: 5px 0; text-align: center; color: #00ff41; text-shadow: 0 0 10px #00ff41;">BREACH PROGRESS: {progress}%</h2>
             </div>
             """, unsafe_allow_html=True)
-            time.sleep(0.3)
+            
+            # Jeda waktu sekitar 1.5 detik per langkah x 8 langkah = ~12 detik total jeda
+            time.sleep(1.5)
             
         # Selesai 100%
         terminal_box.markdown(f"""
@@ -636,7 +639,7 @@ if uploaded_file is not None:
             <h2 style="margin: 5px 0; text-align: center; color: #ffffff; text-shadow: 0 0 15px #00ff41;">SECURE MATRIX READY FOR EXTRACTION</h2>
         </div>
         """, unsafe_allow_html=True)
-        time.sleep(0.3)
+        time.sleep(0.5)
             
         try:
             processed_excel = process_excel_data(uploaded_file)
